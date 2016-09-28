@@ -1,6 +1,11 @@
 var express = require('express');
+var bodyParser = require('body-parser');
 var app = express();
 const PORT = 3000;
+
+var todoNextId = 1;
+
+app.use(bodyParser.json());
 
 var todos = [{
 	id: 1,
@@ -40,6 +45,21 @@ app.get('/todos/:id', function (req, res) {
 		res.status(404).send();
 	}
 });
+
+// POST /todos
+app.post('/todos', function (req, res) {
+	var id = req.query.id;
+	console.log('id: '+id)
+	//var params = req.params();
+	//console.log(req.body.name);
+   //res.json(todos);
+   //console.log(req);
+   var body = req.body;
+   console.log('body: ' + body);
+   console.log('description: ' + body.description);
+   res.json(body);
+});
+
 
 app.use(express.static(__dirname + '/public'));
 
